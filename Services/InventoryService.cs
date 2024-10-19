@@ -36,6 +36,6 @@ namespace InventoryManagementWebApp.Services
             }
         }
 
-        public InventoryItem GetItemById(int id) => _inventory.FirstOrDefault(i => i.Id == id);
+        public InventoryItem? GetItemById(int id) => _inventory.FirstOrDefault(i => i.Id == id);
     }
 }

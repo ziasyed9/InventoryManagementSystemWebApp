@@ -2,6 +2,7 @@ using InventoryManagementWebApp.Models;
 using InventoryManagementWebApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
 
 namespace InventoryManagementWebApp.Pages
 {
@@ -9,9 +10,10 @@ namespace InventoryManagementWebApp.Pages
     {
         private readonly InventoryService _inventoryService;
 
-        public InventoryModel()
+        public InventoryModel(InventoryService inventoryService) // Inject the service
         {
-            _inventoryService = new InventoryService();
+            _inventoryService = inventoryService;
+            InventoryItems = new List<InventoryItem>(); // Initialize to an empty list
         }
 
         public List<InventoryItem> InventoryItems { get; set; }
