@@ -1,0 +1,54 @@
+﻿@page
+@model InventoryManagementWebApp.Pages.InventoryModel
+@{
+    ViewData["Title"] = "Inventory Management";
+}
+
+<h2>Inventory Management</h2>
+
+<form method="post">
+    <h3>Add New Item</h3>
+    <div>
+        <label>Name:</label>
+        <input type="text" name="item.Name" required />
+    </div>
+    <div>
+        <label>Quantity:</label>
+        <input type="number" name="item.Quantity" required />
+    </div>
+    <div>
+        <label>Price:</label>
+        <input type="text" name="item.Price" required />
+    </div>
+    <button type="submit">Add Item</button>
+</form>
+
+<h3>Current Inventory</h3>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.InventoryItems)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.Price</td>
+                <td>
+                    <form method="post" asp-page-handler="DeleteItem">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
