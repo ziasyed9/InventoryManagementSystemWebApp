@@ -6,6 +6,7 @@
 
 <h2>Inventory Management</h2>
 
+<!-- Add Item Form -->
 <form method="post" asp-page-handler="AddItem">
     <h3>Add New Item</h3>
     <div>
@@ -22,7 +23,6 @@
     </div>
     <button type="submit">Add Item</button>
 </form>
-
 
 <h3>Current Inventory</h3>
 <table>
@@ -44,10 +44,35 @@
                 <td>@item.Quantity</td>
                 <td>@item.Price</td>
                 <td>
+                    <!-- Delete Button -->
                     <form method="post" asp-page-handler="DeleteItem">
                         <input type="hidden" name="id" value="@item.Id" />
                         <button type="submit">Delete</button>
                     </form>
+
+                    <!-- Edit Button -->
+                    <form method="post">
+                        <input type="hidden" name="EditItemId" value="@item.Id" />
+                        <button type="submit">Edit</button>
+                    </form>
+
+                    <!-- Conditionally Show Update Form -->
+                    @if (Model.EditItemId == item.Id)
+                    {
+                        <form method="post" asp-page-handler="UpdateItem">
+                            <input type="hidden" name="item.Id" value="@item.Id" />
+                            <div>
+                                <input type="text" name="item.Name" value="@item.Name" required />
+                            </div>
+                            <div>
+                                <input type="number" name="item.Quantity" value="@item.Quantity" required />
+                            </div>
+                            <div>
+                                <input type="text" name="item.Price" value="@item.Price" required />
+                            </div>
+                            <button type="submit">Update</button>
+                        </form>
+                    }
                 </td>
             </tr>
         }

@@ -17,36 +17,28 @@ namespace InventoryManagementWebApp.Pages
         }
 
         public List<InventoryItem> InventoryItems { get; set; }
+        public int? EditItemId { get; set; }  // Track the item being edited
 
         public void OnGet()
         {
             InventoryItems = _inventoryService.GetAllItems();
-
-            Console.WriteLine("Current Inventory Items:");
-            foreach (var item in InventoryItems)
-            {
-                Console.WriteLine($"ID: {item.Id}, Name: {item.Name}, Quantity: {item.Quantity}, Price: {item.Price}");
-            }
         }
 
+        public IActionResult OnPost(int? EditItemId)
+        {
+            InventoryItems = _inventoryService.GetAllItems();
+            this.EditItemId = EditItemId;  // Set the item to be edited based on the button clicked
+            return Page();
+        }
 
         public IActionResult OnPostAddItem(InventoryItem item)
         {
-            Console.WriteLine("OnPostAddItem called"); // Add this line
             if (ModelState.IsValid)
             {
-                Console.WriteLine($"Adding item: {item.Name}, Quantity: {item.Quantity}, Price: {item.Price}");
                 _inventoryService.AddItem(item);
-                return RedirectToPage(); // Redirect to refresh the page and show the updated inventory
+                return RedirectToPage();
             }
-
-            // Log model state errors
-            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-            {
-                Console.WriteLine(error.ErrorMessage);
-            }
-
-            return Page(); // Return the page if there are validation errors
+            return Page();
         }
 
         public IActionResult OnPostUpdateItem(InventoryItem item)
