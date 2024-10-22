@@ -4,77 +4,102 @@
     ViewData["Title"] = "Inventory Management";
 }
 
-<h2>Inventory Management</h2>
+<div class="container mt-5">
+    <h2 class="text-center">Inventory Management</h2>
 
-<!-- Add Item Form -->
-<form method="post" asp-page-handler="AddItem">
-    <h3>Add New Item</h3>
-    <div>
-        <label>Name:</label>
-        <input type="text" name="item.Name" required />
-    </div>
-    <div>
-        <label>Quantity:</label>
-        <input type="number" name="item.Quantity" required />
-    </div>
-    <div>
-        <label>Price:</label>
-        <input type="text" name="item.Price" required />
-    </div>
-    <button type="submit">Add Item</button>
-</form>
+    <!-- Button to open the modal for adding a new item -->
+    <button class="btn btn-primary mb-4" data-toggle="modal" data-target="#addItemModal">Add New Item</button>
 
-<h3>Current Inventory</h3>
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.InventoryItems)
-        {
+    <!-- Modal for Adding New Item -->
+    <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addItemModalLabel">Add New Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" asp-page-handler="AddItem">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" class="form-control" name="item.Name" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Quantity:</label>
+                            <input type="number" class="form-control" name="item.Quantity" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Price:</label>
+                            <input type="text" class="form-control" name="item.Price" required />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Item</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <h3>Current Inventory</h3>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
             <tr>
-                <td>@item.Id</td>
-                <td>@item.Name</td>
-                <td>@item.Quantity</td>
-                <td>@item.Price</td>
-                <td>
-                    <!-- Delete Button -->
-                    <form method="post" asp-page-handler="DeleteItem">
-                        <input type="hidden" name="id" value="@item.Id" />
-                        <button type="submit">Delete</button>
-                    </form>
-
-                    <!-- Edit Button -->
-                    <form method="post">
-                        <input type="hidden" name="EditItemId" value="@item.Id" />
-                        <button type="submit">Edit</button>
-                    </form>
-
-                    <!-- Conditionally Show Update Form -->
-                    @if (Model.EditItemId == item.Id)
-                    {
-                        <form method="post" asp-page-handler="UpdateItem">
-                            <input type="hidden" name="item.Id" value="@item.Id" />
-                            <div>
-                                <input type="text" name="item.Name" value="@item.Name" required />
-                            </div>
-                            <div>
-                                <input type="number" name="item.Quantity" value="@item.Quantity" required />
-                            </div>
-                            <div>
-                                <input type="text" name="item.Price" value="@item.Price" required />
-                            </div>
-                            <button type="submit">Update</button>
-                        </form>
-                    }
-                </td>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.InventoryItems)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price</td>
+                    <td>
+                        <!-- Delete Button -->
+                        <form method="post" asp-page-handler="DeleteItem" class="d-inline">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+
+                        <!-- Edit Button -->
+                        <form method="post" class="d-inline">
+                            <input type="hidden" name="EditItemId" value="@item.Id" />
+                            <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+                        </form>
+
+                        <!-- Conditionally Show Update Form -->
+                        @if (Model.EditItemId == item.Id)
+                        {
+                            <form method="post" asp-page-handler="UpdateItem" class="mt-2">
+                                <input type="hidden" name="item.Id" value="@item.Id" />
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="item.Name" value="@item.Name" required />
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" class="form-control" name="item.Quantity" value="@item.Quantity" required />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="item.Price" value="@item.Price" required />
+                                </div>
+                                <button type="submit" class="btn btn-success">Update</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Include Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

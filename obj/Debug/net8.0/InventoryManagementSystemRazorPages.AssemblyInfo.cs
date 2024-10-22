@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InventoryManagementSystemRazorPages")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0775389710b0e14599f2643f3fd4cf1f57c9dc19")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ad241f29bfd6492371bbd84be5fd8dd0f73ae2aa")]
 [assembly: System.Reflection.AssemblyProductAttribute("InventoryManagementSystemRazorPages")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InventoryManagementSystemRazorPages")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
